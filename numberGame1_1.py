@@ -13,9 +13,6 @@ def go_game(points):
 
     lose_win(number_chosen, current)
 
-#     Wait_for_answer(answer)
-
-
 
 def lose_win(number_chosen, current):
     write_yes = ( 'y', '', 'yes')
