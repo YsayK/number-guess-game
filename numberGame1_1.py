@@ -1,8 +1,10 @@
 from random import randint
 
 
-max_to = 5
+max_to = 10
 minus_points = 3
+
+
 
 def go_game(points):
     number_chosen = randint(1, max_to)
@@ -12,6 +14,9 @@ def go_game(points):
     print('\nPress enter\n')
 
     lose_win(number_chosen, current)
+
+#     Wait_for_answer(answer)
+
 
 
 def lose_win(number_chosen, current):
@@ -76,9 +81,9 @@ def setting_max():
 
 def main(points):
 
-    start_game = ('s', '', 'start')
+    start_game = ('', 'start')
     set_max = ('setmax', 'set', 'max')
-    save_prog = ('save')
+    save_prog = ('s', 'save')
     pts_words = ('pts', 'points', 'p')
     help_words = ('help', 'h')
     help_text = '''
@@ -100,6 +105,11 @@ def main(points):
         print('\nYou have ' + str(points) + ' points' )
     if answ in help_words:
         print(help_text)
+    if answ in save_prog:
+        file_saver = open("numberGame_memory.txt", 'w')
+        file_saver.write(str(points))
+        file_saver.close()
+        print("\nsaved!")
 
     main(points)
 
@@ -112,4 +122,20 @@ def main(points):
 """Start the code"""
 points = 0
 print('\ntipe "help" to see all commands')
+
+try:
+    file_saver = open("numberGame_memory.txt", 'r')
+    points = int(file_saver.read())
+    file_saver.close()
+except ValueError:
+    print("\nno saves founded")
+    points = 0
+    file_saver = open("numberGame_memory.txt", 'w')
+    file_saver.write("0")
+    file_saver.close()
+except FileNotFoundError:
+    file_saver = open("numberGame_memory.txt", 'w')
+    file_saver.write("0")
+    file_saver.close()
+
 main(points)
